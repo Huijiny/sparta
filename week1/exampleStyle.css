@@ -1,0 +1,43 @@
+body{
+	font-family: 'Song Myung', serif;
+}
+.divi {
+	background-image: url(http://www.forest.go.kr/newkfsweb/cmm/fms/FileDown.do?atchFileId=FILE_000000010008639&fileSn=0);
+	width : 200px;
+	height:150px;
+	background-size: cover;
+	border-radius: 10px;
+	padding-top: 40px;
+	padding-bottom: 40px;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	
+
+}
+.option {
+	margin-top : 10px;
+	margin-left: 25px;
+	width : 150px;
+	height : 40px;
+	background-color: gray;
+	border-radius: 5px;
+	color : white;
+	text-align: center;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	opacity: 0.9;
+}
+.wrap{
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+h1,p{
+	text-align: center;
+	margin : 0,0,0,0;
+}
