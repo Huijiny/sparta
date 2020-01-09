@@ -24,3 +24,5 @@ max-width : 최대키 고정해주고싶을때
 padding : 2rem -->rem 기본폰트 사이즈에 비례해서 얼마나 쓸것인가에 대한 단위.
 display : block--> 내가 그 줄 다 차지하겠다. /inline-->자리가 있으면 끼어들겠다.
 
+input form이랑 select/ span 사용해서 숙제하기.
+
