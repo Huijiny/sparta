@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<!--CSS bootstrap-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<!--CSS 파일분리-->
+	<link rel = "stylesheet" type = "text/css" href = "hw-styles.css">
+
+	<!--google font-->
+	<link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+	<!--JS script-->
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+	<title>치킨이 왔어요 빠삭한 치킨이</title>
+	<!-- JavaScrip 파일분리 -->
+	<script  type="text/javascript">
+	
+
+
+		/*여기서 var에 각 필드들 id따와서 저장했는데, 아래 Check()함수에서 *name.val()이런식으로 했을때 안먹힘. 
+		*js파일 분리
+		*파일 분리 후에 event listener js 통해서 구현하는 법.
+		*/
+
+		
+		var name=$('#nameField');
+		var count=$('#countField');
+		var address=$('#addressField');
+		var phone=$('#phoneField');
+
+		function check(){
+
+			if($('#nameField').val()=="") {
+				alert("이름을 입력하세요");
+				$('#nameField').focus();
+			}else if($('#countField').val()=="Choose...") {
+				$('#countField').focus();
+				alert("수량을 입력하세요");
+			}else if($('#addressField').val()=="") {
+				$('#addressField').focus();
+				alert("주소를 입력하세요");
+			}else if($('#phoneField').val()=="") {
+				$('#phoneField').focus();
+				alert("전화번호를 입력하세요");
+			}else if(!(isPhone($('#phoneField').val()))){
+				alert("전화번호를 형식에 맞게 다시 입력하세요");
+			}else{
+				alert("성공");
+			}
+		}
+
+		/*휴대폰 번호 입력 식*/
+		function isPhone(phoneNum) { 
+		var regExp =/(010)-([0-9]{3,4})-([0-9]{4})$/;
+		var myArray;
+		 if(regExp.test(phoneNum)){
+		 	 myArray = regExp.exec(phoneNum); 
+		  	return true; 
+
+		  } else {
+		  	 regExp =/(0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$/;
+		  	  if(regExp.test(phoneNum)){
+		  	   myArray = regExp.exec(phoneNum);  return true;
+		  	   } else {
+		  	    return false; 
+		  		}
+			}
+		}
+
+
+	</script>
+
+</head>
+<body>
+	<div class="wrap">
+		<div>
+			<img class="card-img-top img-size" src="http://imgpark.donga.com/mbs/fileUpload/201502/13/54dd650014466e23991b.jpg" alt="Card image cap">
+			<!--이미지 삽입-->
+		</div>
+
+		<div>
+			<!--상품제목-->
+			<span class="sub-title">상품제목</span>
+			<span>가격 : 만 육천원 /개</span>
+
+			<p>위꼴 취킨 취킨 설명쓰세용</p>
+			
+		</div>
+
+		<div class="form">
+			<!--주문하기-->
+			<label class="sub-title">주문하기</label>
+
+			<div>
+			  <div class="form-group">
+			    주문자 성함 
+			     <input type="text" id="nameField" class="form-control">
+			  </div>
+			  <div class="form-group">
+			  	수량 
+				 <select id="countField" class="form-control" placeholder = "수량을 선택해주세요">
+				  <option selected>Choose...</option>
+				  <option>1</option>
+				  <option>2</option>
+				  <option>3</option>
+				  <option>4</option>
+				  <option>5</option>
+				  <option>6</option>
+				  <option>7</option>
+
+				 </select>
+			  </div>
+			  <div class="form-group">
+			   주소 
+			   <input type="text" id="addressField" class="form-control">
+			  </div>
+			  <div class="form-group">
+			   전화번호
+			    <input type="text" id="phoneField" class="form-control" placeholder="000-0000-0000 형식으로 입력해주세요.">
+			  </div>
+			  
+			  <div class=submitBtn>
+			  <button  onclick="check()" class="btn btn-primary">주문하기</button>
+			  </div>
+			</div>
+		</div>
+
+
+
+
+		
+	<div>
+</body>
+</html>
