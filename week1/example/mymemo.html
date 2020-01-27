@@ -65,6 +65,46 @@
       }
     }
 
+    $(document).ready(function(){
+      $("#cards-box").empty();
+      listing();
+    });
+
+    function make_card(comment, desc, image, title, url){
+      let tmp_html = `<div class="card">
+        <img class="card-img-top" src="${image}" alt="Card image cap">
+        <div class="card-body">
+          <a class="card-title" href="${url}">${title}</a>
+          <p class="card-text">${desc}</p>
+          <p class="card-text comment">${comment}</p>
+        </div>
+    </div>`
+
+    $("#cards-box").append(tmp_html);
+
+    }
+
+    function listing() {
+      $.ajax({
+        type: "GET",
+        url: "http://spartacodingclub.shop/post",
+        data: {},
+        success: function(response){
+          let articles = response['articles'];
+          for(let i=0;i<articles.length;i++){
+            console.log(articles[i]);
+            let comment = articles[i]['comment'];
+            let image = articles[i]['image'];
+            let title = articles[i]['title'];
+            let url = articles[i]['url'];
+            let desc = articles[i]['desc'];
+
+            make_card(comment, desc, image, title, url);
+          }
+        }
+  })
+    }
+
     function addCard(){
       var card = $(".card")[0];
       var num = $('#cardNumber').val();
