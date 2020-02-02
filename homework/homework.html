@@ -12,14 +12,15 @@
 	<link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
 
 	<!--JS script-->
-		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 	<title>치킨이 왔어요 빠삭한 치킨이</title>
 	<!-- JavaScrip 파일분리 -->
 	<script  type="text/javascript">
-	
+
 
 
 		/*여기서 var에 각 필드들 id따와서 저장했는데, 아래 Check()함수에서 *name.val()이런식으로 했을때 안먹힘. 
@@ -32,6 +33,8 @@
 		var count=$('#countField');
 		var address=$('#addressField');
 		var phone=$('#phoneField');
+
+		init();
 
 		function check(){
 
@@ -56,20 +59,53 @@
 
 		/*휴대폰 번호 입력 식*/
 		function isPhone(phoneNum) { 
-		var regExp =/(010)-([0-9]{3,4})-([0-9]{4})$/;
-		var myArray;
-		 if(regExp.test(phoneNum)){
-		 	 myArray = regExp.exec(phoneNum); 
-		  	return true; 
+			var regExp =/(010)-([0-9]{3,4})-([0-9]{4})$/;
+			var myArray;
+			if(regExp.test(phoneNum)){
+				myArray = regExp.exec(phoneNum); 
+				return true; 
 
-		  } else {
-		  	 regExp =/(0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$/;
-		  	  if(regExp.test(phoneNum)){
-		  	   myArray = regExp.exec(phoneNum);  return true;
-		  	   } else {
-		  	    return false; 
-		  		}
+			} else {
+				regExp =/(0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$/;
+				if(regExp.test(phoneNum)){
+					myArray = regExp.exec(phoneNum);  return true;
+				} else {
+					return false; 
+				}
 			}
+		}
+
+		function loadOrdered() {
+			$.ajax({
+				type : "GET",
+				url : "http://spartacodingclub.shop/order",
+				data : {},
+				success : function(response){
+					let orders = response["orders"];
+					for(let i=0;i<orders.length; i++){
+						var name = orders[i]["name"]
+						var address = orders[i]["address"];
+						var count = orders[i]["count"];
+						var phone = orders[i]["phone"];
+
+						let tag = `
+						<tr>
+							<td>${name}</td>
+							<td>${count}</td>
+							<td>${address}</td>
+							<td>${phone}</td>
+						</tr>
+						`
+						$("#order_table").append(tag);
+					}
+
+
+				}
+			})
+		}
+
+		function init(){
+			loadOrdered();
 		}
 
 
@@ -97,36 +133,51 @@
 			<label class="sub-title">주문하기</label>
 
 			<div>
-			  <div class="form-group">
-			    주문자 성함 
-			     <input type="text" id="nameField" class="form-control">
-			  </div>
-			  <div class="form-group">
-			  	수량 
-				 <select id="countField" class="form-control" placeholder = "수량을 선택해주세요">
-				  <option selected>Choose...</option>
-				  <option>1</option>
-				  <option>2</option>
-				  <option>3</option>
-				  <option>4</option>
-				  <option>5</option>
-				  <option>6</option>
-				  <option>7</option>
+				<div class="form-group">
+					주문자 성함 
+					<input type="text" id="nameField" class="form-control">
+				</div>
+				<div class="form-group">
+					수량 
+					<select id="countField" class="form-control" placeholder = "수량을 선택해주세요">
+						<option selected>Choose...</option>
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
 
-				 </select>
-			  </div>
-			  <div class="form-group">
-			   주소 
-			   <input type="text" id="addressField" class="form-control">
-			  </div>
-			  <div class="form-group">
-			   전화번호
-			    <input type="text" id="phoneField" class="form-control" placeholder="000-0000-0000 형식으로 입력해주세요.">
-			  </div>
-			  
-			  <div class=submitBtn>
-			  <button  onclick="check()" class="btn btn-primary">주문하기</button>
-			  </div>
+					</select>
+				</div>
+				<div class="form-group">
+					주소 
+					<input type="text" id="addressField" class="form-control">
+				</div>
+				<div class="form-group">
+					전화번호
+					<input type="text" id="phoneField" class="form-control" placeholder="000-0000-0000 형식으로 입력해주세요.">
+				</div>
+
+				<div class=submitBtn>
+					<button  onclick="check()" class="btn btn-primary">주문하기</button>
+				</div>
+			</div>
+			<div>
+				<table class="table tb_layout table-bordered ">
+					<thead>
+						<tr>
+							<th scope="col">이름</th>
+							<th scope="col">수량</th>
+							<th scope="col">주소</th>
+							<th scope="col">전화번호</th>
+						</tr>
+					</thead>
+					<tbody id="order_table">
+						
+					</tbody>
+				</table>
 			</div>
 		</div>
 
@@ -134,6 +185,6 @@
 
 
 		
-	<div>
-</body>
-</html>
+		<div>
+		</body>
+		</html>
